@@ -20,6 +20,38 @@ public class SinglyLinkedList<T> {
         }
     }
 
+    private T removeFirst() {
+        if (head == null) {
+            throw new IllegalArgumentException("List is already empty");
+        }
+        length--;
+        T data = head.data;
+        head = head.next;
+        return data;
+    }
+
+    private T removeLast() {
+        if (head == null) {
+            throw new IllegalArgumentException("List is already empty");
+        }
+        length--;
+        if (head.next == null) {
+            T data = head.data;
+            head = null;
+            return data;
+        } else {
+            Node<T> cursorA = head;
+            Node<T> cursorB = head.next;
+            while (cursorB.next != null) {
+                cursorA = cursorB;
+                cursorB = cursorB.next;
+            }
+            T data = cursorB.data;
+            cursorA.next = null;
+            return data;
+        }
+    }
+
     private void addFirst(T data) {
         if (head == null) {
             head = new Node<T>(data, null);
@@ -28,7 +60,6 @@ public class SinglyLinkedList<T> {
         }
         length++;
     }
-
 
     private void addLast(T data) {
         if (head == null) {
